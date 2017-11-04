@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion = 25
+    buildToolsVersion = "26.0.1"
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        ndk {
+            abiFilters 'armeabi-v7a' //, 'arm64-v8a'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'src/main/jni/CMakeLists.txt'
+        }
+    }
+}
+/*
+android.ndk {
+    moduleName = "MagicBeautify"
+    cppFlags.add("-DANDROID_NDK")
+    cppFlags.add("-D_DEBUG")
+    ldLibs.add("log")
+    ldLibs.add("jnigraphics")
+    stl = "stlport_static"
+}
+*/
+android.buildTypes {
+    release {
+        minifyEnabled = false
+        proguardFiles.add(file('proguard-rules.txt'))
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+}
